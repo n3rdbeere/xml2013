@@ -1,0 +1,8 @@
+from dataBrowser.models.basic.models import *
+
+# wrapper function in order to get read some necessary data from request
+def getClientRequestData(viewFunction):
+    def wrapper(request):
+        clientRequest = ClientRequest(request)
+        return viewFunction(clientRequest)
+    return wrapper

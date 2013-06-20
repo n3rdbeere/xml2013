@@ -1,0 +1,14 @@
+# basic models
+from dataBrowser.submodels.basic.models import *
+
+# models of json part
+from dataBrowser.submodels.json_part.models import *
+
+# models of microdata part
+from dataBrowser.submodels.microdata_part.models import *
+
+# models of linked data part
+from dataBrowser.submodels.linked_data_part.models import *
+
+# models of oai xml part
+from dataBrowser.submodels.oai_xml_part.models import *

@@ -1,0 +1,7 @@
+<li>
+    <div>
+        <img src="/databrowser/site_media/databrowser/lofslidernews/images/lofthumbs/pdf_small.jpg" />
+        <h3> {{ title }} </h3>
+        <span><<date>></span> {{ title }}
+    </div>    
+</li>

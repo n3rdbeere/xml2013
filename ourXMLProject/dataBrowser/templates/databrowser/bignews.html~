@@ -1,0 +1,7 @@
+<div class="lof-main-item">
+    <img src="/dataBrowser/site_media/databrowser/lofslidernews/images/pdf_back_image.jpg" title="{{ title }}" height="300" width="900">           
+    <div class="lof-main-item-desc">
+        <h3><a target="_parent" title="{{ title }}" href="#">{{ title }}</a></h3>
+        <p>{{ title }}</p>
+     </div>
+</div>

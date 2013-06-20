@@ -1,0 +1,86 @@
+{% autoescape off %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Lof SliderNews 1.0 - Mootool 1.1</title>
+<link rel="stylesheet" type="text/css" href="/xmlproject/site_media/xmlproject/lofslidernews/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/xmlproject/site_media/xmlproject/lofslidernews/css/style.css" />
+<script language="javascript" type="text/javascript" src="/xmlproject/site_media/xmlproject/lofslidernews/js/mootools.svn.js"></script>
+<script language="javascript" type="text/javascript" src="/xmlproject/site_media/xmlproject/lofslidernews/js/lofslidernews.mt11.js"></script>
+
+<style>
+	/** css for override **/
+	.lof-descleft .lof-main-item-desc{
+		top:0;
+		left:30px;
+		width:350px;
+		height:100%;
+	}
+</style>
+</head>
+
+<body>
+	<div id="container">
+    		<h1>OAI Records</h1>
+       
+ <p>
+	XML-Project 2013
+</p>       
+<!------------------------------------- THE CONTENT ------------------------------------------------->
+<div id="lofslidecontent45" class="lof-slidecontent lof-descleft">
+<div class="preload"><div></div></div>
+ <!-- MAIN CONTENT --> 
+  <div class="lof-main-wapper">
+        <!--
+  		<div class="lof-main-item">
+        		<img src="/xmlproject/site_media/xmlproject/lofslidernews/images/pdf_back_image.jpg" title="Newsflash 1" height="300" width="900">           
+                 <div class="lof-main-item-desc">
+                <h3><a target="_parent" title="Newsflash 1" href="#">Newsflash 1</a></h3>
+
+                <p>The one thing about a Web site, it always changes! Joomla! makes it easy to add Articles, content,...</p>
+             </div>
+        </div>  
+        -->
+        
+        {{ bigNews }}
+  </div>
+  <!-- END MAIN CONTENT --> 
+    <!-- NAVIGATOR -->
+
+  <div class="lof-navigator-outer">
+  		<ul class="lof-navigator">
+            <!--
+            <li>
+            	<div>
+                	<img src="/xmlproject/site_media/xmlproject/lofslidernews/images/lofthumbs/pdf_small.jpg" />
+                	<h3> NewsFlash 1 </h3>
+                  	<span>20.01.2010</span> - In id, mauris viverra asperiores, bibendum in id. Eu molestie. Ac sit eu...
+                </div>    
+            </li>
+            -->
+            {{ smallNews }}
+            
+        </ul>
+  </div>
+ </div> 
+<script type="text/javascript">
+	var _lofmain =  $('lofslidecontent45');
+	var _lofscmain = _lofmain.getElement('.lof-main-wapper');
+	var _lofnavigator = _lofmain.getElement('.lof-navigator-outer .lof-navigator');
+	var object = new LofFlashContent( _lofscmain, 
+									  _lofnavigator,
+									  _lofmain.getElement('.lof-navigator-outer'),
+									  { fxObject:{ transition:Fx.Transitions.Quad.easeInOut,  duration:800},
+									    interval:3000,
+							 		    direction:'opacity'
+									  } 
+	).start( true, _lofmain.getElement('.preload') );
+</script>
+
+
+</div>
+    </div>
+</body>
+</html>
+{% endautoescape %}
