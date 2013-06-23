@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from urllib import *
 from django.utils import *
+from xml.dom.minidom import *
 
 # models
 from dataBrowser.models.basic.models import *
@@ -17,7 +18,8 @@ from dataBrowser.models.oai_xml_part.models import *
 from dataBrowser.scripts.oai_xml_part.functions import *
 from dataBrowser.scripts.basic.functions import *
 
-
+# lxml
+from lxml import etree
 
 
 
@@ -27,26 +29,20 @@ def index(clientRequest):
     context = Context({})
     return HttpResponse(template.render(context))
 
-
-
 @csrf_exempt
 @getClientRequestData
-def open(clientRequest):
+def openUri(clientRequest):
     # open URI
     uri = clientRequest.request.POST['uri']
     response = urlopen(uri)
-    
+
     # get some response's meta information
+    headers = response.info()
     contentType = headers["Content-Type"]
-    
-    # get response body
-    responseBody = response.read()
     
     # choose template according to content type
     if (contentType == "text/xml;charset=UTF-8"):
-        return itIsXML(clientRequest, contentType, responseBody)
+        return itIsXML(clientRequest, contentType, response)
     else:
-        return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': "Default"})
-
-
-
+        result = "default"
+        return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': result})

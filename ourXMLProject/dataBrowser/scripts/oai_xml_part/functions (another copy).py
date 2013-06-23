@@ -44,7 +44,26 @@ def itIsXML(clientRequest, contentType, response):
     if (isOAI(root)) :
         requestElement = root.childNodes[1]
         verb = requestElement.attributes.get("verb").value
-        xmlDoc = etree.XML(responseBody)
+        
+        text = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai.xsl"))
+        transform = etree.XSLT(text)
+        doc = etree.XML('''\
+            <root>
+                <a title="AAA" name="Adam" >
+                    Anfang A-Tag
+                    <b name="Berta">
+                        B-Tag
+                    </b>
+                        Mitte
+                    <c name="Caesar">
+                        C-Tag
+                    </c>
+                    Ende A-Tag
+                </a>
+            </root>            
+        ''')
+        result = transform(doc)
+        return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': result})
 
         # use OAI Template according to verb
         if (verb == "Identify"):
@@ -54,15 +73,24 @@ def itIsXML(clientRequest, contentType, response):
             
             # use OAI Template according to metaDataPrefix          
             if (metaDataPrefix == "oai_dc") :
+                elementListRecords = normalizeXML(root.getElementsByTagName("ListRecords")[0])
                 bigNews = ""
                 smallNews = ""
-                bigNewsXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_list_records_big_news.xsl"))
-                smallNewsXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_list_records_small_news.xsl"))
-                bigNewsTransform = etree.XSLT(bigNewsXSL)
-                smallNewsTransform = etree.XSLT(smallNewsXSL)
-                bigNews = bigNewsTransform(xmlDoc)
-                smallNews = smallNewsTransform(xmlDoc)                    
-                return render(clientRequest.request, 'databrowser/oai_xml_part/list_records.html', {'bigNews' : bigNews, 'smallNews': smallNews})
+                
+                for record in elementListRecords.childNodes:
+                    title = ""
+                    
+                    if (len(record.getElementsByTagName("dc:title")) > 0):
+                        title = record.getElementsByTagName("dc:title")[0].firstChild.nodeValue
+                    
+                    bigNews = bigNews + render_to_string('databrowser/oai_xml_part/bignews.html', {'title' : title})
+                    smallNews = smallNews + render_to_string('databrowser/oai_xml_part/smallnews.html', {'title' : title})
+                    
+                #html_parser = html.parser.HTMLParser()
+                print(bigNews.encode("UTF-8"))
+                #bigNews = html_parser.unescape(bigNews)
+                    
+                return render(clientRequest.request, 'databrowser/oai_xml_part/list_records.html', {'bigNews' : bigNews.encode("UTF-8"), 'smallNews': smallNews})
             else :
                 # use default OAI xslt 
                 pass

@@ -1,6 +1,6 @@
 <h1>XML-Technologien 2013</h1>
 <h3>Projektphase - Future Browser</h3>
-<!-- OAI: http://www.analegeo.uaic.ro/index.php/SciGeo/oai?verb=ListRecords&metadataPrefix=oai_dc -->
+
 <form action="{% url 'databrowser:openUri' %}" method="post">
 {% csrf_token %}
 <div><label>Bitte URI eingeben</label></div>
