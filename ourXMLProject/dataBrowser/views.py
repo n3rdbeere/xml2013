@@ -45,7 +45,7 @@ def openUri(clientRequest):
     if (contentType == "text/xml;charset=UTF-8"):
         return itIsXML(clientRequest, contentType, response)
     else:
-        # result = "default"
-	# return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': result})
-        return itIsSPARQL(clientRequest, contentType, response)
+         #result = "default"
+         result = itIsSPARQL(clientRequest, contentType, response)
+	 return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': uri,'searchresult' : result})
 	
