@@ -16,6 +16,7 @@ from dataBrowser.models.oai_xml_part.models import *
 
 # further functions
 from dataBrowser.scripts.oai_xml_part.functions import *
+from dataBrowser.scripts.linked_data_part.functions import *
 from dataBrowser.scripts.basic.functions import *
 
 # lxml
@@ -44,5 +45,7 @@ def openUri(clientRequest):
     if (contentType == "text/xml;charset=UTF-8"):
         return itIsXML(clientRequest, contentType, response)
     else:
-        result = "default"
-        return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': result})
+        # result = "default"
+	# return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': result})
+        return itIsSPARQL(clientRequest, contentType, response)
+	
