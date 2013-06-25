@@ -184,5 +184,5 @@ span.smallNews {
     color:#EEE;
 }
 span.smallNewsHeadline {
-    font-weight:bold;
+
 }

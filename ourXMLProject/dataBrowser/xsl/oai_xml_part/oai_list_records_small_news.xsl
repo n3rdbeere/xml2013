@@ -25,8 +25,20 @@
                     <!--<xsl:value-of select="./oai:metadata/oai_dc:dc/dc:title" />-->
                 </xsl:element>
                 <xsl:element name="span">
-                    <xsl:value-of select="./oai:metadata/oai_dc:dc/dc:creator" /><br />
-                    <xsl:value-of select="./oai:metadata/oai_dc:dc/dc:title" />
+                    <xsl:attribute name="class">smallNewsHeadline</xsl:attribute>
+                    A:
+                </xsl:element>
+                <xsl:element name="span">
+                    <xsl:attribute name="class">smallNews</xsl:attribute>
+                    <xsl:value-of select="substring(./oai:metadata/oai_dc:dc/dc:creator, 0, 50)" />[...]
+                </xsl:element><br /><br />
+<xsl:element name="span">
+                    <xsl:attribute name="class">smallNewsHeadline</xsl:attribute>
+                    T:
+                </xsl:element>
+                <xsl:element name="span">
+                    <xsl:attribute name="class">smallNews</xsl:attribute>
+                    <xsl:value-of select="substring(./oai:metadata/oai_dc:dc/dc:title, 0, 50)" />[...]
                 </xsl:element>
             </xsl:element>
         </xsl:element>

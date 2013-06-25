@@ -3,11 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Lof SliderNews 1.0 - Mootool 1.1</title>
+<title>OAI Records</title>
 <link rel="stylesheet" type="text/css" href="/databrowser/site_media/databrowser/oai_xml_part/lofslidernews/css/layout.css" />
-<link rel="stylesheet" type="text/css" href="/databrowser/site_media/databrowser/lofslidernews/css/style.css" />
-<script language="javascript" type="text/javascript" src="/databrowser/site_media/databrowser/lofslidernews/js/mootools.svn.js"></script>
-<script language="javascript" type="text/javascript" src="/databrowser/site_media/databrowser/lofslidernews/js/lofslidernews.mt11.js"></script>
+<link rel="stylesheet" type="text/css" href="/databrowser/site_media/databrowser/oai_xml_part/lofslidernews/css/style.css" />
+<script language="javascript" type="text/javascript" src="/databrowser/site_media/databrowser/oai_xml_part/lofslidernews/js/mootools.svn.js"></script>
+<script language="javascript" type="text/javascript" src="/databrowser/site_media/databrowser/oai_xml_part/lofslidernews/js/lofslidernews.mt11.js"></script>
 
 <style>
 	/** css for override **/
@@ -24,9 +24,6 @@
 	<div id="container">
     		<h1>OAI Records</h1>
        
- <p>
-	XML-Project 2013
-</p>       
 <!------------------------------------- THE CONTENT ------------------------------------------------->
 <div id="lofslidecontent45" class="lof-slidecontent lof-descleft">
 <div class="preload"><div></div></div>
@@ -34,7 +31,7 @@
   <div class="lof-main-wapper">
         <!--
   		<div class="lof-main-item">
-        		<img src="/databrowser/site_media/databrowser/lofslidernews/images/pdf_back_image.jpg" title="Newsflash 1" height="300" width="900">           
+        		<img src="/databrowser/site_media/databrowser/oai_xml_part/lofslidernews/images/pdf_back_image.jpg" title="Newsflash 1" height="300" width="900">           
                  <div class="lof-main-item-desc">
                 <h3><a target="_parent" title="Newsflash 1" href="#">Newsflash 1</a></h3>
 
@@ -53,7 +50,7 @@
             <!--
             <li>
             	<div>
-                	<img src="/databrowser/site_media/databrowser/lofslidernews/images/lofthumbs/pdf_small.jpg" />
+                	<img src="/databrowser/site_media/databrowser/oai_xml_part/lofslidernews/images/lofthumbs/pdf_small.jpg" />
                 	<h3> NewsFlash 1 </h3>
                   	<span>20.01.2010</span> - In id, mauris viverra asperiores, bibendum in id. Eu molestie. Ac sit eu...
                 </div>    
