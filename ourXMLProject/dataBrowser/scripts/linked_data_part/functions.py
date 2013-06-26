@@ -23,7 +23,7 @@ def itIsSPARQL(clientRequest, contentType, response):
     WHERE { <"""+clientRequest.request.POST['uri']+"""> rdfs:label ?label }""")
     sparql.setReturnFormat(XML)
     response = sparql.query()
-    return response.convert()
+    return response.convert().toxml()
 #render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext' : "XML:STANDARD" + contentType}
     #results.print_results()
 
