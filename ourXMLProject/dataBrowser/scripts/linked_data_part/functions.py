@@ -16,11 +16,18 @@ from lxml import etree
 
 def itIsSPARQL(clientRequest, contentType, response):
     print >>sys.stderr,clientRequest.request.POST['uri']
-    sparql = SPARQLWrapper("http://dbpedia.org/sparql")
+    uri = clientRequest.request.POST['uri']
+    uri = uri.replace("http://","")
+    uri2 = uri.partition("/")
+    print >>sys.stderr, uri2[0]  
+    sparql = SPARQLWrapper("http://"+uri2[0]+"/sparql")
     sparql.setQuery("""
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    SELECT ?label
-    WHERE { <"""+clientRequest.request.POST['uri']+"""> rdfs:label ?label }""")
+    SELECT ?label ?comment ?sameAs
+    WHERE {
+	 <"""+clientRequest.request.POST['uri']+"""> rdfs:label ?label.
+	<"""+clientRequest.request.POST['uri']+""">  rdfs:comment ?comment.
+ 	<"""+clientRequest.request.POST['uri']+""">  owl:sameAs ?sameAs}""")
     sparql.setReturnFormat(XML)
     response = sparql.query()
     return response.convert().toxml()
