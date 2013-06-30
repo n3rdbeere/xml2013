@@ -59,7 +59,11 @@ def itIsXML(clientRequest, contentType, response):
                 rdfTransform = etree.XSLT(rdfXSL)
                 rdf = rdfTransform(xmlDoc)
                 save_xmlrdf_to_virtuoso(rdf)
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> ba25679ec60ab59a6c2009e23378be12cfa31e03
                 bigNews = ""
                 smallNews = ""
                 bigNewsXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_list_records_big_news.xsl"))
