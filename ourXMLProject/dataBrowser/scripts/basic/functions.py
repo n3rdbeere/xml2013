@@ -1,4 +1,5 @@
-#from dataBrowser.models.basic.models import *
+# from dataBrowser.models... needs to be commented out to do standalone tests
+from dataBrowser.models.basic.models import *
 from rdflib.store import Store
 from rdflib.plugin import get as plugin
 from rdflib import Graph, store
