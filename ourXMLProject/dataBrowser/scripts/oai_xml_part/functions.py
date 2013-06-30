@@ -58,18 +58,17 @@ def itIsXML(clientRequest, contentType, response):
                 rdfXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_to_xmlrdf.xslt"))
                 rdfTransform = etree.XSLT(rdfXSL)
                 rdf = rdfTransform(xmlDoc)
-                #save_xmlrdf_to_virtuoso(rdf)
-                return HttpResponse("LALA")
+                save_xmlrdf_to_virtuoso(rdf)
 
-#                bigNews = ""
-#                smallNews = ""
-#                bigNewsXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_list_records_big_news.xsl"))
-#                smallNewsXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_list_records_small_news.xsl"))
-#                bigNewsTransform = etree.XSLT(bigNewsXSL)
-#                smallNewsTransform = etree.XSLT(smallNewsXSL)
-#                bigNews = bigNewsTransform(xmlDoc)
-#                smallNews = smallNewsTransform(xmlDoc)                    
-                #return render(clientRequest.request, 'databrowser/oai_xml_part/list_records.html', {'bigNews' : bigNews, 'smallNews': smallNews})
+                bigNews = ""
+                smallNews = ""
+                bigNewsXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_list_records_big_news.xsl"))
+                smallNewsXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_list_records_small_news.xsl"))
+                bigNewsTransform = etree.XSLT(bigNewsXSL)
+                smallNewsTransform = etree.XSLT(smallNewsXSL)
+                bigNews = bigNewsTransform(xmlDoc)
+                smallNews = smallNewsTransform(xmlDoc)                    
+                return render(clientRequest.request, 'databrowser/oai_xml_part/list_records.html', {'bigNews' : bigNews, 'smallNews': smallNews})
             else :
                 # http redirect
                 return HttpResponse("REDIRECT PLZ")
