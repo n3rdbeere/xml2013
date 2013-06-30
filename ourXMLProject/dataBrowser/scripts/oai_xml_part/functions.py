@@ -10,9 +10,10 @@ from django.utils.html import *
 # lxml
 from lxml import etree
 
+# check, whether response xml is oai xml
 def isOAI(root):
 
-    #### scheme validation did not work, as there are always mistakes in the oai-repos
+    #### scheme validation did not work, as there seem to be always mistakes in the oai-repos
     #response = urlopen("http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd")
     #responseBody = response.read()
     #xmlSchemaDoc = etree.fromstring(responseBody)
@@ -31,7 +32,7 @@ def isOAI(root):
         return (False)
         
 
-        
+# process xml
 def itIsXML(clientRequest, contentType, response):
 
     responseBody = response.read()
@@ -47,13 +48,16 @@ def itIsXML(clientRequest, contentType, response):
         xmlDoc = etree.XML(responseBody)
 
         # use OAI Template according to verb
-        if (verb == "Identify"):
-            return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': "OAI"})
-        elif (verb == "ListRecords") :
+        if (verb == "ListRecords"):
             metaDataPrefix = requestElement.attributes.get("metadataPrefix").value
             
             # use OAI Template according to metaDataPrefix          
             if (metaDataPrefix == "oai_dc") :
+                # generate rdf xml
+                #rdfXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_to_xmlrdf.xslt"))
+                #rdfTransform = etree.XSLT(rdfXSL)
+                #return HttpResponse(rdfTransform(xmlDoc))
+
                 bigNews = ""
                 smallNews = ""
                 bigNewsXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_list_records_big_news.xsl"))
@@ -62,19 +66,19 @@ def itIsXML(clientRequest, contentType, response):
                 smallNewsTransform = etree.XSLT(smallNewsXSL)
                 bigNews = bigNewsTransform(xmlDoc)
                 smallNews = smallNewsTransform(xmlDoc)                    
-                return render(clientRequest.request, 'databrowser/oai_xml_part/list_records.html', {'bigNews' : bigNews, 'smallNews': smallNews})
+                #return render(clientRequest.request, 'databrowser/oai_xml_part/list_records.html', {'bigNews' : bigNews, 'smallNews': smallNews})
             else :
-                # use default OAI xslt 
-                pass
+                # http redirect
+                return HttpResponse("REDIRECT PLZ")
         else :
-            # use default OAI xslt 
-            pass
+            # http redirect
+            return HttpResponse("REDIRECT PLZ")
     else:
-        # use default xml template
+        # http redirect
         return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext' : "XML:STANDARD" + contentType})
  
  
- 
+# delete empty text nodes of parameter node
 def normalizeXML(root):
     for node in root.childNodes:
         if node.nodeType == Node.TEXT_NODE:

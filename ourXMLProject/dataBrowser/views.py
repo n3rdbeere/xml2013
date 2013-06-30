@@ -38,10 +38,10 @@ def openUri(clientRequest):
 
     # get some response's meta information
     headers = response.info()
-    contentType = headers["Content-Type"]
-    
+    contentType = headers["Content-Type"].replace(" ", "")
+
     # choose template according to content type
-    if (contentType == "text/xml;charset=UTF-8"):
+    if (contentType.startswith("text/xml")):
         return itIsXML(clientRequest, contentType, response)
     else:
         result = "default"
