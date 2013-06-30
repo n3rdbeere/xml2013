@@ -53,6 +53,11 @@ def itIsXML(clientRequest, contentType, response):
             
             # use OAI Template according to metaDataPrefix          
             if (metaDataPrefix == "oai_dc") :
+                # generate rdf xml
+                #rdfXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_to_xmlrdf.xslt"))
+                #rdfTransform = etree.XSLT(rdfXSL)
+                #return HttpResponse(rdfTransform(xmlDoc))
+
                 bigNews = ""
                 smallNews = ""
                 bigNewsXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_list_records_big_news.xsl"))
@@ -62,11 +67,6 @@ def itIsXML(clientRequest, contentType, response):
                 bigNews = bigNewsTransform(xmlDoc)
                 smallNews = smallNewsTransform(xmlDoc)                    
                 #return render(clientRequest.request, 'databrowser/oai_xml_part/list_records.html', {'bigNews' : bigNews, 'smallNews': smallNews})
-
-                # generate rdf xml
-                rdfXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_to_xmlrdf.xslt"))
-                rdfTransform = etree.XSLT(rdfXSL)
-                return HttpResponse(rdfTransform(xmlDoc))
             else :
                 # http redirect
                 return HttpResponse("REDIRECT PLZ")

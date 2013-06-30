@@ -9,6 +9,7 @@ from xml.dom.minidom import *
 from django.utils.html import *
 # lxml
 from lxml import etree
+from dataBrowser.scripts.basic.functions import *
 
 # check, whether response xml is oai xml
 def isOAI(root):
@@ -54,9 +55,10 @@ def itIsXML(clientRequest, contentType, response):
             # use OAI Template according to metaDataPrefix          
             if (metaDataPrefix == "oai_dc") :
                 # generate rdf xml
-                #rdfXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_to_xmlrdf.xslt"))
-                #rdfTransform = etree.XSLT(rdfXSL)
-                #return HttpResponse(rdfTransform(xmlDoc))
+                rdfXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_to_xmlrdf.xslt"))
+                rdfTransform = etree.XSLT(rdfXSL)
+                isRDFok = save_xmlrdf_to_virtuoso(rdfTransform(xmlDoc))
+                return HttpResponse(isRDFok)
 
                 bigNews = ""
                 smallNews = ""
