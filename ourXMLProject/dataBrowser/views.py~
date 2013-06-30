@@ -38,12 +38,10 @@ def openUri(clientRequest):
 
     # get some response's meta information
     headers = response.info()
-    print(headers)
     contentType = headers["Content-Type"].replace(" ", "")
 
     # choose template according to content type
     if (contentType.startswith("text/xml")):
         return itIsXML(clientRequest, contentType, response)
     else:
-        result = "default"
-        return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': result})
+        return HttpResponseRedirect(uri)
