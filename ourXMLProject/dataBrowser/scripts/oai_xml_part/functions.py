@@ -45,7 +45,6 @@ def itIsXML(clientRequest, contentType, response):
         requestElement = root.childNodes[1]
         verb = requestElement.attributes.get("verb").value
         xmlDoc = etree.XML(responseBody)
-
         # use OAI Template according to verb
         if (verb == "Identify"):
             return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': "OAI"})

@@ -1,4 +1,5 @@
 # general
+import sys
 from django.http import HttpResponse
 from django.template import Context, loader
 from django.shortcuts import render
@@ -40,12 +41,12 @@ def openUri(clientRequest):
     # get some response's meta information
     headers = response.info()
     contentType = headers["Content-Type"]
-    
+    print >> sys.stderr, contentType
     # choose template according to content type
     if (contentType == "text/xml;charset=UTF-8"):
         return itIsXML(clientRequest, contentType, response)
-    else:
+    elif(contentType == "text/html; charset=UTF-8"):
          #result = "default"
-         result = itIsSPARQL(clientRequest, contentType, response)
-	 return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': uri,'searchresult' : result})
+         return itIsSPARQL(clientRequest, contentType, response)
+	 #return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': uri,'searchresult' : result})
 	
