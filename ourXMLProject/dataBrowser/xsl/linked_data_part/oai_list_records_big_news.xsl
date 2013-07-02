@@ -2,12 +2,7 @@
 <xsl:stylesheet
     version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
-    xmlns:rdfs ="http://www.w3.org/2000/01/rdf-schema#"
-    xmlns:owl = "http://www.w3.org/2002/07/owl#"
-    xmlns:foaf = "http://xmlns.com/foaf/0.1/"
-    xmlns:dbpedia-owl = "http://dbpedia.org/ontology/"
-
-    exclude-result-prefixes="rdfs owl foaf dbpedia-owl"
+    xmlns:sp="http://www.w3.org/2005/sparql-results#" 
 >
     <xsl:output method="html" />
 
@@ -15,7 +10,7 @@
     <xsl:template match="/processing-instruction()" />
 
     <!-- Record Template -->
-    <xsl:template match="/sparql/results/result">
+    <xsl:template match="/sp:sparql/sp:results/sp:result">
 
         <xsl:element name="div">
             <xsl:attribute name="class">lof-main-item</xsl:attribute>
@@ -23,7 +18,7 @@
             <xsl:element name="img">
                 <xsl:attribute name="src">/databrowser/site_media/databrowser/oai_xml_part/lofslidernews/images/pdf_back_image.jpg</xsl:attribute>
                 <xsl:attribute name="title">
-                    <xsl:value-of select="./binding[@name='label']/literal" />
+                    <xsl:value-of select="./sp:binding[@name='label']/sp:literal" />
                 </xsl:attribute>
                 <xsl:attribute name="height">300</xsl:attribute>
                 <xsl:attribute name="width">900</xsl:attribute>
@@ -36,35 +31,52 @@
                         <xsl:attribute name="class">
                             headline
                         </xsl:attribute>
-                        Person:
+                        Person: 
                     </xsl:element>
-                    <br/>
                     <xsl:element name="span">
                         <xsl:attribute name="class">
                             bodytext
                         </xsl:attribute>
-                        <xsl:value-of select="./binding[@name='label']/literal" />
+			<xsl:element name="a">
+                        <xsl:attribute name="target">_blank</xsl:attribute>
+                        <xsl:attribute name="title">
+                            <xsl:value-of select="./sp:binding[@name='lable']/sp:literal" />
+                        </xsl:attribute>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="./sp:binding[@name='primaryTopic']/sp:uri" />
+                        </xsl:attribute>
+                        <xsl:value-of select="./sp:binding[@name='label']/sp:literal" />
                     </xsl:element>
+		     <br/>
+                        <xsl:value-of select="./sp:binding[@name='comment']/sp:literal" />
+		                    </xsl:element>
                 </xsl:element>
                 <xsl:element name="div">
                     <xsl:element name="span">
                         <xsl:attribute name="class">
                             headline
                         </xsl:attribute>
-                        Geburtsort:
+                        Birth place:
                     </xsl:element>
-                    <br/>
                     <xsl:element name="a">
                         <xsl:attribute name="target">_blank</xsl:attribute>
                         <xsl:attribute name="title">
-                            <xsl:value-of select="./binding[@name='label']/literal" />
+                            <xsl:value-of select="./sp:binding[@name='bplable']/sp:literal" />
                         </xsl:attribute>
                         <xsl:attribute name="href">
-                            <xsl:value-of select="./binding[@name='birthPlace']/uri" />
+                            <xsl:value-of select="./sp:binding[@name='birthPlace']/sp:uri" />
                         </xsl:attribute>
-                        <xsl:value-of select="./binding[@name='label']/literal" />
+                        <xsl:value-of select="./sp:binding[@name='bplable']/sp:literal" />
+                    </xsl:element>
+		 <br/>
+		<xsl:element name="span">
+                        <xsl:attribute name="class">
+                            bodytext
+                        </xsl:attribute>
+                        <xsl:value-of select="./sp:binding[@name='bpcomment']/sp:literal" />       
                     </xsl:element>
                 </xsl:element>
+		 <xsl:element name="div">
                 <xsl:element name="span">
                         <xsl:attribute name="class">
                             headline
@@ -75,31 +87,9 @@
                         <xsl:attribute name="class">
                             bodytext
                         </xsl:attribute>
-                        <xsl:value-of select="./binding[@name='label']/literal/@xml:lang" />
+                        <xsl:value-of select="./sp:binding[@name='label']/sp:literal/@xml:lang" />
                     </xsl:element>
-                </xsl:element>
-                <xsl:element name="div">
-                    <xsl:element name="span">
-                        <xsl:attribute name="class">
-                            headline
-                        </xsl:attribute>
-                        Geburtsort-Info:
-                    </xsl:element>
-                    <br/>
-                    <xsl:element name="span">
-                        <xsl:attribute name="class">
-                            bodytext
-                        </xsl:attribute>
-                        <xsl:choose>
-                            <xsl:when test="./binding[@name='bpcomment']/literal=''">
-                                No description available.
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:value-of select="substring(./binding[@name='bpcomment']/literal, 0, 500)" />
-                                [...]
-                            </xsl:otherwise>   
-                        </xsl:choose>
-                    </xsl:element>
+                  </xsl:element>
                 </xsl:element>
             </xsl:element>
     </xsl:template>

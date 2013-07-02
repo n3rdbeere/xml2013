@@ -26,19 +26,21 @@ def itIsSPARQL(clientRequest, contentType, response):
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
     PREFIX dbpedia-owl: <http://dbpedia.org/ontology/>
-    SELECT ?label ?comment ?sameAs ?primaryTopic ?birthPlace ?bpcomment
+    SELECT DISTINCT ?label ?comment ?primaryTopic ?birthPlace ?bpcomment ?bplable
     WHERE {
 	<"""+clientRequest.request.POST['uri']+"""> rdfs:label ?label.
- 	<"""+clientRequest.request.POST['uri']+"""> owl:sameAs ?sameAs.
 	<"""+clientRequest.request.POST['uri']+"""> rdfs:comment ?comment.
 	<"""+clientRequest.request.POST['uri']+"""> foaf:isPrimaryTopicOf ?primaryTopic.
-        <"""+clientRequest.request.POST['uri']+"""> dbpedia-owl:birthPlace ?birthPlace.
-        OPTIONAL{?birthPlace rdfs:comment ?bpcomment.}
+        <"""+clientRequest.request.POST['uri']+"""> dbpedia-owl:birthPlace ?birthPlace.	
+	OPTIONAL{?birthPlace rdfs:label ?bplable}.
+        OPTIONAL{?birthPlace rdfs:comment ?bpcomment}.
 }""")
     sparql.setReturnFormat(XML)
     response = sparql.query()
+    #print >> sys.stderr,"query finished"
     dom = response.convert()
     xmlString = dom.toprettyxml()
+    #print >> sys.stderr,xmlString
     xmlDoc = etree.XML(xmlString)
     bigNews = ""
     smallNews = ""
@@ -47,6 +49,7 @@ def itIsSPARQL(clientRequest, contentType, response):
     bigNewsTransform = etree.XSLT(bigNewsXSL)
     smallNewsTransform = etree.XSLT(smallNewsXSL)
     bigNews = bigNewsTransform(xmlDoc)
+#    print >>sys.stderr,bigNews
     smallNews = smallNewsTransform(xmlDoc)                    
-    return render(clientRequest.request, 'databrowser/linked_data_part/list_records.html', {'bigNews' : bigNews, 'smallNews': smallNews}) 
+    return render(clientRequest.request, 'databrowser/linked_data_part/list_records.html', {'bigNews' : bigNews, 'smallNews': smallNews})
 

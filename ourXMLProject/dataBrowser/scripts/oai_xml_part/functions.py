@@ -1,3 +1,4 @@
+import sys
 from django.http import HttpResponse
 from django.template import *
 from django.template.loader import *
@@ -45,6 +46,7 @@ def itIsXML(clientRequest, contentType, response):
         requestElement = root.childNodes[1]
         verb = requestElement.attributes.get("verb").value
         xmlDoc = etree.XML(responseBody)
+	print >> sys.stderr, root.toxml()
         # use OAI Template according to verb
         if (verb == "Identify"):
             return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': "OAI"})

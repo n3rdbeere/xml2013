@@ -22,7 +22,7 @@
 
 <body>
 	<div id="container">
-    		<h1>OAI Records</h1>
+    		<h1>DBPedia Results</h1>
        
 <!------------------------------------- THE CONTENT ------------------------------------------------->
 <div id="lofslidecontent45" class="lof-slidecontent lof-descleft">
