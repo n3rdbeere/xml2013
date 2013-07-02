@@ -34,7 +34,7 @@ def isOAI(root):
         
 
 # process xml
-def itIsXML(clientRequest, contentType, response):
+def itIsXML(clientRequest, contentType, response, uri):
 
     responseBody = response.read()
     xml = parseString(responseBody)
@@ -59,11 +59,7 @@ def itIsXML(clientRequest, contentType, response):
                 rdfTransform = etree.XSLT(rdfXSL)
                 rdf = rdfTransform(xmlDoc)
                 save_xmlrdf_to_virtuoso(rdf)
-<<<<<<< HEAD
-                
-=======
 
->>>>>>> ba25679ec60ab59a6c2009e23378be12cfa31e03
                 bigNews = ""
                 smallNews = ""
                 bigNewsXSL = etree.parse(open("dataBrowser/xsl/oai_xml_part/oai_list_records_big_news.xsl"))
@@ -75,13 +71,14 @@ def itIsXML(clientRequest, contentType, response):
                 return render(clientRequest.request, 'databrowser/oai_xml_part/list_records.html', {'bigNews' : bigNews, 'smallNews': smallNews})
             else :
                 # http redirect
-                return HttpResponse("REDIRECT PLZ")
+                return HttpResponseRedirect(uri)
         else :
             # http redirect
-            return HttpResponse("REDIRECT PLZ")
+            return HttpResponseRedirect(uri)
     else:
         # http redirect
-        return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext' : "XML:STANDARD" + contentType})
+        return HttpResponseRedirect(uri)        
+        # return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext' : "XML:STANDARD" + contentType})
  
  
 # delete empty text nodes of parameter node

@@ -42,6 +42,6 @@ def openUri(clientRequest):
 
     # choose template according to content type
     if (contentType.startswith("text/xml")):
-        return itIsXML(clientRequest, contentType, response)
+        return itIsXML(clientRequest, contentType, response, uri)
     else:
         return HttpResponseRedirect(uri)
