@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 import sys
-from django.http import HttpResponse
-=======
 from django.http import HttpResponse, HttpResponseRedirect
->>>>>>> master
 from django.template import *
 from django.template.loader import *
 from django.shortcuts import render

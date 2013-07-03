@@ -1,3 +1,4 @@
+import sys
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import *
 from django.template.loader import *
@@ -47,7 +48,7 @@ def itIsXML(clientRequest, contentType, response, uri):
         requestElement = root.childNodes[1]
         verb = requestElement.attributes.get("verb").value
         xmlDoc = etree.XML(responseBody)
-
+	print >> sys.stderr, root.toxml()
         # use OAI Template according to verb
         if (verb == "ListRecords"):
             metaDataPrefix = requestElement.attributes.get("metadataPrefix").value
@@ -71,13 +72,14 @@ def itIsXML(clientRequest, contentType, response, uri):
                 return render(clientRequest.request, 'databrowser/oai_xml_part/list_records.html', {'bigNews' : bigNews, 'smallNews': smallNews})
             else :
                 # http redirect
-                return HttpResponse("REDIRECT PLZ")
+                return HttpResponseRedirect(uri)
         else :
             # http redirect
-            return HttpResponse("REDIRECT PLZ")
+            return HttpResponseRedirect(uri)
     else:
         # http redirect
-        return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext' : "XML:STANDARD" + contentType})
+        return HttpResponseRedirect(uri)        
+        # return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext' : "XML:STANDARD" + contentType})
  
  
 # delete empty text nodes of parameter node

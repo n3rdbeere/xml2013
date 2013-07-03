@@ -43,10 +43,9 @@ def openUri(clientRequest):
     contentType = headers["Content-Type"]
     # choose template according to content type
     if (contentType == "text/xml;charset=UTF-8"):
-        return itIsXML(clientRequest, contentType, response)
+         return itIsXML(clientRequest, contentType, response, uri)
     elif(contentType == "text/html; charset=UTF-8"):
          #result = "default"
          return itIsSPARQL(clientRequest, contentType, response)
-        return itIsXML(clientRequest, contentType, response, uri)
     else:
         return HttpResponseRedirect(uri)

@@ -1,10 +1,6 @@
 # general
-<<<<<<< HEAD
 import sys
-from django.http import HttpResponse
-=======
 from django.http import HttpResponse, HttpResponseRedirect
->>>>>>> master
 from django.template import Context, loader
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -44,22 +40,13 @@ def openUri(clientRequest):
 
     # get some response's meta information
     headers = response.info()
-<<<<<<< HEAD
     contentType = headers["Content-Type"]
-    print >> sys.stderr, contentType
-=======
-    contentType = headers["Content-Type"].replace(" ", "")
-
->>>>>>> master
     # choose template according to content type
-    if (contentType.startswith("text/xml")):
+    if (contentType == "text/xml;charset=UTF-8"):
         return itIsXML(clientRequest, contentType, response)
-    else:
-<<<<<<< HEAD
+    elif(contentType == "text/html; charset=UTF-8"):
          #result = "default"
          return itIsSPARQL(clientRequest, contentType, response)
-	 #return render(clientRequest.request, 'databrowser/oai_xml_part/results.html', {'searchtext': uri,'searchresult' : result})
-	
-=======
+        return itIsXML(clientRequest, contentType, response, uri)
+    else:
         return HttpResponseRedirect(uri)
->>>>>>> master

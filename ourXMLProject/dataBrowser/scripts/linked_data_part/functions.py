@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from urllib import *
 from dataBrowser.models.linked_data_part.models import *
 from SPARQLWrapper import SPARQLWrapper, XML, RDF
-
+from dataBrowser.scripts.basic.functions import *
 from django.utils.html import *
 # lxml
 from lxml import etree
