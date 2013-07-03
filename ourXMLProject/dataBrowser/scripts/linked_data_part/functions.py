@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from urllib import *
 from dataBrowser.models.linked_data_part.models import *
-from SPARQLWrapper import SPARQLWrapper, XML
+from SPARQLWrapper import SPARQLWrapper, XML, RDF
 
 from django.utils.html import *
 # lxml
@@ -39,6 +39,9 @@ def itIsSPARQL(clientRequest, contentType, response):
     response = sparql.query()
     #print >> sys.stderr,"query finished"
     dom = response.convert()
+    sparql.setReturnFormat(RDF)
+    results = sparql.query().convert()
+    print sys.stderr,save_xmlrdf_to_virtuoso(results.serialize())
     xmlString = dom.toprettyxml()
     #print >> sys.stderr,xmlString
     xmlDoc = etree.XML(xmlString)
