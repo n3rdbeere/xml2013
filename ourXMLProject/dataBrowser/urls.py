@@ -6,5 +6,5 @@ urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
 	url(r'^openURI/$', views.openUri, name='openUri'),
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': '/home/user/git/xml2013/ourXMLProject/dataBrowser/templates'})
+        {'document_root': '/home/user/xml/xml2013/ourXMLProject/dataBrowser/templates'})
 )

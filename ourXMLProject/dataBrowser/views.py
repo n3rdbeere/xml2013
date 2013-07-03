@@ -17,6 +17,7 @@ from dataBrowser.models.oai_xml_part.models import *
 # further functions
 from dataBrowser.scripts.oai_xml_part.functions import *
 from dataBrowser.scripts.basic.functions import *
+from dataBrowser.scripts.microdata_part.functions import *
 
 # lxml
 from lxml import etree
@@ -44,4 +45,5 @@ def openUri(clientRequest):
     if (contentType.startswith("text/xml")):
         return itIsXML(clientRequest, contentType, response, uri)
     else:
-        return HttpResponseRedirect(uri)
+      	return itIsMicrodata(clientRequest)
+	 # return HttpResponseRedirect(uri)

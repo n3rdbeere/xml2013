@@ -8,11 +8,14 @@ from dataBrowser.models.microdata_part.models import *
 from xml.dom.minidom import *
 from django.utils.html import *
 from dataBrowser.scripts.basic.functions import *
+from lxml iport etree
+
 import rdflib
 import rdflib_microdata
 
-def xml(uri):
+def itIsMicrodata(clientRequest):
+	uri = clientRequest.POST['uri']
 	g = rdflib.Graph()
 	g.parse(uri, format="microdata")
-	print g.serialize()
-
+	return g.serialize()
+	
